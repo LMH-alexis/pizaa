@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build Your Own Pizza</title>
+  <style>
+    /* — ریست و فونت — */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: sans-serif; background:#f2f2f2; padding:20px; }
+
+    /* — کانتینر اصلی: کراست سمت چپ، منو سمت راست — */
+    .builder {
+      display: flex;
+      flex-direction: row-reverse; /* معکوس کردن جهت در RTL */
+      gap: 120px;
+      max-width: 1200px;
+      margin: 50px;
+      align-items: space-between;
+    }
+
+    /* — قسمت پیتزا (کراست بزرگ‌تر) — */
+    .pizza-container {
+      position: relative;
+      width: 50%;    /* بزرگ‌تر شد */
+      height: 600px;   /* بزرگ‌تر شد */
+      flex-shrink: 0;  /* جلوگیری از کوچک شدن */
+    
+    }
+    .pizza-container img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      user-select: none;
+      pointer-events: none;
+    }
+    .pizza-base {
+      z-index: 1; }
+    .topping {
+      z-index: 2;
+      display: none;
+    }
+    .topping.active {
+      display: block;
+    }
+
+    /* — منوی آکاردئون — */
+    .menu {
+      width: 40%;
+    }
+    .accordion-item {
+      background: #fff;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .accordion-header {
+      padding: 12px 16px;
+      cursor: pointer;
+      position: relative;
+      font-weight: bold;
+    }
+    .accordion-header::after {
+      content: '▸';
+      position: absolute;
+      left: 16px;
+      transition: transform .2s;
+    }
+    .accordion-item.open .accordion-header::after {
+      transform: rotate(90deg);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .accordion-item.open .accordion-content {
+      max-height: 500px;
+    }
+    .accordion-content ul { list-style: none; }
+    .accordion-content li { border-top: 1px solid #eee; }
+    .menu-item {
+      display: block;
+      padding: 10px 16px;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .menu-item:hover { background: #f1f1f1; }
+    .menu-item.active { background: #dfefff; }
+  </style>
+</head>
+<body>
+
+  <div class="builder">
+    <!-- 🍕 کراست سمت چپ -->
+    <div class="pizza-container">
+      <img src="./crust nbg.png" alt=" pizza" class="pizza-base">
+      <img src="./pepperoni.png" alt="Pepperoni" id="pepperoni" class="topping">
+      <img src="./beef.png" alt="beef" id="beef" class="topping">
+      <img src="images/olives.png" alt="Olives" id="olives" class="topping">
+    </div>
+
+    <!-- 📋 منوی آکاردئون سمت راست -->
+    <div class="menu">
+      <div class="accordion-item">
+        <div class="accordion-header">Toppings</div>
+        <div class="accordion-content">
+          <ul>
+            <li><span class="menu-item" data-topping="pepperoni"><img src="./pepperoni.png"></span></li>
+            <li><span class="menu-item" data-topping="beef"><img src="./beef.png"></span></li>
+            <li><span class="menu-item" data-topping="chicken"><img src="./chicken.png"></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header">Sauces</div>
+        <div class="accordion-content">
+          <ul>
+            <li><span class="menu-item" data-topping="tomato-sauce">Tomato Sauce</span></li>
+            <li><span class="menu-item" data-topping="bbq-sauce">BBQ Sauce</span></li>
+            <li><span class="menu-item" data-topping="hot-sauce">Hot Sauce</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- دسته‌های بیشتر… -->
+    </div>
+  </div>
+
+  <script>
+    // آکاردئون
+    document.querySelectorAll('.accordion-header').forEach(header =>
+      header.addEventListener('click', () =>
+        header.parentElement.classList.toggle('open')
+      )
+    );
+
+    // تگگل کردن تاپینگ
+    document.querySelectorAll('.menu-item').forEach(el =>
+      el.addEventListener('click', () => {
+        const img = document.getElementById(el.dataset.topping);
+        if (!img) return;
+        img.classList.toggle('active');
+        el.classList.toggle('active');
+      })
+    );
+  </script>
+
+</body>
+</html>

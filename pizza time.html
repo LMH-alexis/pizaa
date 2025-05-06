@@ -1,0 +1,57 @@
+<html>
+  <head>
+  <style>
+
+      .a{
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        margin:auto;
+
+      }
+    input{
+      width:100%;
+      margin-bottom: 20px;
+      height: 50px;
+    }
+    .b{margin-top: 200px;}
+    .c{font-size: 72px;
+    text-align: center;
+    font-family: fantasy;
+    background-color: rgb(65, 13, 0);
+    color: rgb(255, 255, 255);
+    width: 50%;
+    height: 100px;
+    margin-left: 340px;
+    margin-right: 100px;
+    border: 2px solid black;
+    }
+    body{
+      background-image: url("./bg.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+  </head>
+  <body >
+    <div class="c">Pizza Time!</div>
+    <div class="a"></div>
+      <form>
+        <input type="name" placeholder="enter your name"
+        class="b">
+        <input type="password" placeholder="enter your password"> 
+        <input type="email" placeholder="enter your email">
+        <input type="number" placeholder="enter your age">
+<a href="./page2.html"><button id="submit">submit</button></a>
+      </form>
+      <script>
+        const nameId = document.getElementById("submit")
+        nameId.addEventListener("click", a)
+        function a(){
+          window.open("./page 2.html",'_blank');
+        }
+
+      </script>
+  </body>
+</html>
